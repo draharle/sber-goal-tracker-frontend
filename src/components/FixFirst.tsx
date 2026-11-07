@@ -95,7 +95,7 @@ function Priorities({ summary, activeRules, activeSeverities, onSelectSeverity, 
         Что исправлять первым
       </Heading>
 
-      <ul className="kkd-list" style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8, margin: '12px 0 16px' }}>
+      <ul className="kkd-list kkd-severity-chips">
         {summary.issues_by_severity.map((row) => {
           const pressed = activeSeverities.length === 1 && activeSeverities[0] === row.code;
           return (
@@ -106,13 +106,15 @@ function Priorities({ summary, activeRules, activeSeverities, onSelectSeverity, 
                 aria-pressed={pressed}
                 aria-label={`${SEVERITY_LABEL[row.code]}: ${row.current} — показать в таблице`}
                 onClick={() => onSelectSeverity(row.code)}
-                style={{ width: 'auto', border: `1px solid ${token.colorBorderSecondary}` }}
+                style={{ border: `1px solid ${token.colorBorderSecondary}`, flexWrap: 'wrap', rowGap: 4 }}
               >
                 <SeverityTag severity={row.code}>{row.title}</SeverityTag>
                 <span className="kkd-num" style={{ fontWeight: token.fontWeightStrong, fontSize: token.fontSizeLG }}>
                   {formatNumber(row.current)}
                 </span>
-                <NeutralChange delta={row.delta} />
+                <span style={{ flexBasis: '100%' }}>
+                  <NeutralChange delta={row.delta} />
+                </span>
               </button>
             </li>
           );

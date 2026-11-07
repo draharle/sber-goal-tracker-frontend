@@ -11,15 +11,12 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [react()],
     build: {
-      // antd — самая тяжёлая часть; выносим библиотеки в отдельные файлы, чтобы они кэшировались
-      // браузером независимо от кода страницы.
-      chunkSizeWarningLimit: 900,
+      // Библиотеки (React, antd) — отдельным файлом vendor: он кэшируется браузером независимо
+      // от кода страницы. antd весит ~1 МБ без сжатия (~310 КБ gzip), поэтому порог предупреждения поднят.
+      chunkSizeWarningLimit: 1200,
       rollupOptions: {
         output: {
-          manualChunks: {
-            react: ['react', 'react-dom'],
-            antd: ['antd', '@ant-design/icons'],
-          },
+          manualChunks: (id) => (id.includes('node_modules') ? 'vendor' : undefined),
         },
       },
     },

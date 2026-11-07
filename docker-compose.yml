@@ -1,0 +1,31 @@
+# docker compose up --build → страница на http://localhost:8080, mock API на http://localhost:8000
+services:
+  mock-api:
+    # Mock API собирается прямо из репозитория задания.
+    build: https://gitverse.ru/kkk_s/moc_api_kkd.git#master
+    ports:
+      - "8000:8000"
+    environment:
+      MOCK_LATENCY_MS: "300"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 5s
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: .
+      args:
+        VITE_API_URL: ${VITE_API_URL:-}
+    environment:
+      # адрес API внутри сети docker compose (имя сервиса выше)
+      API_PROXY_TARGET: http://mock-api:8000
+    ports:
+      - "${FRONTEND_PORT:-8080}:80"
+    depends_on:
+      mock-api:
+        condition: service_healthy
+    restart: unless-stopped

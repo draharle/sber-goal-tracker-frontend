@@ -23,7 +23,7 @@ export function RunUnavailable({ run, runs, apiMessage, onSelectRun, onRefresh }
   const running = run.status === 'running';
   const reason = running
     ? 'Прогон ещё выполняется — результаты появятся после завершения.'
-    : `${run.error ?? apiMessage ?? 'Прогон завершился с ошибкой.'} Результатов у этого прогона нет.`;
+    : run.error ?? apiMessage ?? 'Прогон завершился с ошибкой — результатов у него нет.';
 
   return (
     <div role="alert" className="kkd-panel">

@@ -181,6 +181,13 @@ body {
   gap: 4px;
 }
 
+.kkd-severity-chips {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 12px 0 16px;
+}
+
 .kkd-rule-row {
   display: grid;
   grid-template-columns: 150px minmax(0, 1fr) 56px 120px;
