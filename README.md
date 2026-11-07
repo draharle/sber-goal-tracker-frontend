@@ -11,7 +11,7 @@
 Нужен Docker. Поднимаются и страница, и mock API (он собирается прямо из своего git-репозитория):
 
 ```bash
-git clone <адрес этого репозитория> kkd-frontend
+git clone https://github.com/draharle/sber-goal-tracker-frontend.git kkd-frontend
 cd kkd-frontend
 docker compose up --build
 ```
