@@ -1,0 +1,241 @@
+/* Только раскладка и состояния. Цвета — через CSS-переменные из темы (см. ThemeCssVars.tsx). */
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  background: var(--kkd-color-bg-layout);
+  font-family: var(--kkd-font-family);
+}
+
+.kkd-visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.kkd-skip-link {
+  position: absolute;
+  left: 16px;
+  top: -48px;
+  z-index: 1000;
+  padding: 8px 12px;
+  border-radius: var(--kkd-radius);
+  background: var(--kkd-color-bg-container);
+  color: var(--kkd-color-primary);
+}
+
+.kkd-skip-link:focus {
+  top: 16px;
+}
+
+/* --- шапка --- */
+.kkd-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  border-bottom: 1px solid var(--kkd-color-border-secondary);
+}
+
+.kkd-header__inner,
+.kkd-main__inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.kkd-header__inner {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.kkd-header__controls {
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+}
+
+.kkd-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.kkd-field__label {
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--kkd-color-text-secondary);
+}
+
+/* --- основная часть --- */
+.kkd-main {
+  background: var(--kkd-color-bg-layout);
+  min-height: calc(100vh - 72px);
+}
+
+.kkd-main__inner {
+  padding-top: 24px;
+  padding-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.kkd-panel {
+  background: var(--kkd-color-bg-container);
+  border: 1px solid var(--kkd-color-border-secondary);
+  border-radius: 12px;
+  padding: 20px 24px;
+}
+
+.kkd-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.kkd-grid--primary {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.kkd-grid--secondary {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.kkd-grid--fix {
+  grid-template-columns: minmax(280px, 1fr) minmax(0, 2fr);
+  align-items: start;
+}
+
+/* шапка липкая — при прокрутке к заголовку оставляем под ней место */
+.kkd-main h2 {
+  scroll-margin-top: 96px;
+}
+
+.kkd-section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+/* --- кликабельные счётчики и строки правил --- */
+.kkd-clickable {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  border: 1px solid transparent;
+  border-radius: var(--kkd-radius-lg);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.2s, background-color 0.2s;
+}
+
+.kkd-clickable:hover {
+  border-color: var(--kkd-color-primary);
+}
+
+.kkd-clickable:focus-visible,
+.kkd-history-cell:focus-visible {
+  outline: 2px solid var(--kkd-color-primary);
+  outline-offset: 2px;
+}
+
+.kkd-clickable[aria-pressed='true'] {
+  border-color: var(--kkd-color-primary);
+  box-shadow: inset 0 0 0 1px var(--kkd-color-primary);
+}
+
+.kkd-clickable:disabled {
+  cursor: default;
+}
+
+.kkd-clickable:disabled:hover {
+  border-color: transparent;
+}
+
+.kkd-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.kkd-rule-row {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr) 56px 120px;
+  align-items: center;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.kkd-num {
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- таблица --- */
+.kkd-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.kkd-table-row {
+  cursor: pointer;
+}
+
+/* --- история проблемы --- */
+.kkd-history {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
+  gap: 8px;
+}
+
+.kkd-history-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px;
+  border-radius: var(--kkd-radius-lg);
+  border: 1px solid transparent;
+  font-size: 12px;
+  line-height: 16px;
+  white-space: nowrap;
+}
+
+@media (max-width: 1279px) {
+  .kkd-grid--primary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .kkd-grid--fix {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .kkd-header__inner {
+    flex-wrap: wrap;
+  }
+}
