@@ -162,7 +162,10 @@ export function KkdPage() {
           ) : (
             <ErrorResult
               error={summary.error}
-              onRetry={summary.refetch}
+              onRetry={() => {
+                summary.refetch();
+                if (issues.error) issues.refetch();
+              }}
               actions={
                 view.kind === 'not-found' ? (
                   <Button type="primary" onClick={resetAll}>
